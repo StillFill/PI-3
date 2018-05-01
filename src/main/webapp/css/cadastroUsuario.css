@@ -1,0 +1,56 @@
+h1#usu{
+    text-align: center;
+    margin-left: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+#nomeUsu{
+    width: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#loginUsu{
+    width: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 27px;
+}
+
+#senha{
+    width: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#perfilUsu{
+    width: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 15px;
+}
+
+#empresaUsu{
+    width: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#botaoUsu{
+    margin-left: 265px;
+}
+
+#mensagem{
+    font-size: 12px;
+    margin-right: 20px;
+}

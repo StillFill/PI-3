@@ -1,0 +1,178 @@
+h1#cli{
+    text-align: center;
+    margin-left: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+label{
+    margin-left: 10px;
+    font-size: 17px;    
+}
+
+label#cpf{
+    margin-left: 60px;    
+}
+
+label#rgl{
+    margin-left: -9px;
+}
+
+label#email{
+    margin-left: 0px;
+    margin-right: -387px;
+}
+
+label#tel{
+    margin-left: 55px;
+}
+
+label#tel2{
+    margin-left: -5px;
+}
+
+#nome{
+    width: 445px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 2px;
+}
+
+#sobrenome{
+    width: 445px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 2px;
+}
+
+#sexo{
+    width: 150px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 9px;
+}
+
+#nasc{
+    width: 169px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 2px;
+}
+
+#cpf{
+    width: 190px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 25px;
+    margin-left: -165px;
+}
+
+#rg{
+    width: 198px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 2px;
+}
+
+#tel1{
+    width: 190px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 16px;
+}
+
+#tel2{
+    width: 198px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: -162px;
+}
+
+#email{
+    width: 448px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 4px;
+}
+
+#endereco{
+    width: 260px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 16px;
+}
+
+#numero{
+    width: 88px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: -12px;
+    margin-left: 2px;
+}
+
+#complemento{
+    width: 445px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 7px;
+}
+
+#cep{
+    width: 255px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 14px;
+}
+
+#cidade{
+    width: 260px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 15px;
+}
+
+#estado{
+    width: 298px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#perfilCli{
+    width: 254px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: -2px;
+}
+
+#perfilCliLab{
+    margin-left: -10px;
+}
+
+button{
+    margin-left: 516px;
+}
+
+#mensagem{
+    font-size: 12px;
+    margin-right: 20px;
+}
+
+#botaoSalvarCli{
+    margin-left: 496px;
+}
