@@ -1,4 +1,4 @@
-package com.senac.madeinastec.utils;
+package com.senac.astec.utils;
 
 
 import java.sql.Connection;
@@ -7,10 +7,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Magno Veras
- */
 public class ConexaoBanco {
     
     public Connection createConnection(){
