@@ -45,44 +45,64 @@ public class CadastrarClienteServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         request.setCharacterEncoding("UTF-8");
-        String name = request.getParameter("name").toLowerCase();
-        String birthday = request.getParameter("birthday").toLowerCase();
-        String documentNumber = request.getParameter("documentNumber").toLowerCase();
-        String cpf = request.getParameter("cpf").toLowerCase();
-        String gender = request.getParameter("gender").toLowerCase();
-        String phone = request.getParameter("phone").toLowerCase();
-        String cellphone = request.getParameter("cellphone").toLowerCase();
-        String email = request.getParameter("email").toLowerCase();
-        String cep = request.getParameter("cep").toLowerCase();
-        String logradouro = request.getParameter("logradouro").toLowerCase();
-        String addressNumber = request.getParameter("addressNumber").toLowerCase();
-        String complement = request.getParameter("complement").toLowerCase();
-        String neighborhood = request.getParameter("neighborhood").toLowerCase();
-        String city = request.getParameter("city").toLowerCase();
-        String state = request.getParameter("state").toLowerCase();
-
-        Cliente newClient = new Cliente();
-        newClient.setName(name);
-        newClient.setBirthday(birthday);
-        newClient.setDocumentNumber(documentNumber);
-        newClient.setCpf(cpf);
-        newClient.setGender(gender);
-        newClient.setPhone(phone);
-        newClient.setCellphone(cellphone);
-        newClient.setEmail(email);
-        newClient.setCEP(cep);
-        newClient.setLogradouro(logradouro);
-        newClient.setAddressNumber(addressNumber);
-        newClient.setComplement(complement);
-        newClient.setNeighborhood(neighborhood);
-        newClient.setCity(city);
-        newClient.setState(state);
-                
+        String name = request.getParameter("name");
+        String birthday = request.getParameter("birthday");
+        String documentNumber = request.getParameter("documentNumber");
+        String cpf = request.getParameter("cpf");
+        String gender = request.getParameter("gender");
+        String phone = request.getParameter("phone");
+        String cellphone = request.getParameter("cellphone");
+        String email = request.getParameter("email");
+        String cep = request.getParameter("cep");
+        String logradouro = request.getParameter("logradouro");
+        String addressNumber = request.getParameter("addressNumber");
+        String complement = request.getParameter("complement");
+        String neighborhood = request.getParameter("neighborhood");
+        String city = request.getParameter("city");
+        String state = request.getParameter("state");
         PrintWriter imprimir = response.getWriter();
- 
-        imprimir.println();
+        Cliente newClient = new Cliente();
+            newClient.setNome(name);
+            newClient.setDataNasc(birthday);
+            newClient.setRg(documentNumber);
+            newClient.setCpf(cpf);
+            newClient.setSexo(gender);
+            newClient.setTelefone(phone);
+            newClient.setCelular(cellphone);
+            newClient.setEmail(email);
+            newClient.setCep(cep);
+            newClient.setLogradouro(logradouro);
+            newClient.setNumero(addressNumber);
+            newClient.setComplemento(complement);
+            newClient.setBairro(neighborhood);
+            newClient.setCidade(city);
+            newClient.setEstado(state);
+            newClient.setEnabled(true);
+//            newClient.setCodigoempresa();
+        ServicoCliente servicoCliente = new ServicoCliente();
+        try {
+            servicoCliente.cadastrarCliente(newClient);  
+            imprimir.println("deu bom");
+        } catch(Exception e) {
+            imprimir.println("deu ruim");
+        }
 
 //        response.sendRedirect(request.getContextPath() + "/cadastrar-cliente");
     }
+    // deletar
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doDelete(req, resp); //To change body of generated methods, choose Tools | Templates.
+    }
     
+    // atualizar
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
+    }
+    // recebe sessão, token,
+    @Override
+    protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doHead(req, resp); //To change body of generated methods, choose Tools | Templates.
+    }
 }

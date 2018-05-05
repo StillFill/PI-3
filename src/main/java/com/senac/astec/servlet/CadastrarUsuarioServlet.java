@@ -5,9 +5,9 @@
  */
 package com.senac.astec.servlet;
 
-import com.senac.astec.dao.UsuarioDAO;
-import com.senac.astec.model.Usuario;
-import com.senac.astec.service.ServicoUsuario;
+import com.senac.astec.dao.LoginDAO;
+import com.senac.astec.model.Login;
+import com.senac.astec.service.ServicoLogin;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;

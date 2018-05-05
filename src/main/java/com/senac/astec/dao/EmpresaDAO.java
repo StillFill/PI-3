@@ -23,9 +23,8 @@ public class EmpresaDAO {
 
     public void inserirCliente(Empresa empresa) {
 
-        String query = " insert into empresas (nome, sobrenome, sexo, cpf, rg, datanasc, telefone, telefone2, email,"
-                + "endereco, numero, complemento, cep, cidade, estado, codigoempresa)"
-                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = " insert into empresas (nome, cnpj, cep, logradouro, numero, compemento, bairro, cidade, estado, idLogin)"
+                + " values (?, ?, ? ,? ,? ,? ,? ,? ,?, ?, ?)";
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -40,12 +39,6 @@ public class EmpresaDAO {
             preparedStatement.setString(8, empresa.getCity());
             preparedStatement.setString(9, empresa.getState());
             preparedStatement.setString(10, empresa.getIdGerente());
-            preparedStatement.setString(12, empresa.getAddressNumber());
-            preparedStatement.setString(13, empresa.getComplement());
-            preparedStatement.setString(14, empresa.getNeighborhood());
-            preparedStatement.setString(15, empresa.getCity());
-            preparedStatement.setString(16, empresa.getState());
-            preparedStatement.setInt(17, empresa.getId());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -56,8 +49,7 @@ public class EmpresaDAO {
 
     public Empresa updateEmpresa(Empresa empresa) throws Exception {
         System.out.println("Iniciando processo de atualização de empresa...");
-        String query = "UPDATE empresas SET nome=?, sobrenome=?, sexo=?, rg=?, datanasc=?, telefone=?, telefone2=?, email=?, "
-                + "endereco=?,  numero=?, complemento=?, cidade=?,  estado=?, codigoempresa=?, cep=? WHERE cpf=?";
+        String query = "UPDATE empresas SET nome=?,cnpj=?,cep=?,logradouro=?,numero=?,compemento=?,bairro=?,cidade=?,estado=?,idLogin=? WHERE id=?";
 
         System.out.println(empresa.toString());
         try {
@@ -73,12 +65,7 @@ public class EmpresaDAO {
             preparedStatement.setString(8, empresa.getCity());
             preparedStatement.setString(9, empresa.getState());
             preparedStatement.setString(10, empresa.getIdGerente());
-            preparedStatement.setString(12, empresa.getAddressNumber());
-            preparedStatement.setString(13, empresa.getComplement());
-            preparedStatement.setString(14, empresa.getNeighborhood());
-            preparedStatement.setString(15, empresa.getCity());
-            preparedStatement.setString(16, empresa.getState());
-            preparedStatement.setInt(17, empresa.getId());
+            preparedStatement.setInt(11, empresa.getId());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -124,11 +111,11 @@ public class EmpresaDAO {
                 empresa.setCnpj(rs.getString("cnpj"));
                 empresa.setCEP(rs.getString("cep"));
                 empresa.setLogradouro(rs.getString("logradouro"));
-                empresa.setAddressNumber(rs.getString("addressNumber"));
-                empresa.setComplement(rs.getString("complement"));
-                empresa.setNeighborhood(rs.getString("neighborhood"));
-                empresa.setCity(rs.getString("city"));
-                empresa.setState(rs.getString("state"));
+                empresa.setAddressNumber(rs.getString("numero"));
+                empresa.setComplement(rs.getString("complemento"));
+                empresa.setNeighborhood(rs.getString("bairro"));
+                empresa.setCity(rs.getString("cidade"));
+                empresa.setState(rs.getString("estado"));
                 empresa.setIdGerente(rs.getString("idGerente"));
                 
                 
@@ -148,8 +135,6 @@ public class EmpresaDAO {
         List<Empresa> lista = new ArrayList<>();
         String query = "";
 
-        boolean vazio = true;
-
         query = "SELECT * FROM empresas WHERE codigoempresa=?";
 
         try {
@@ -166,11 +151,11 @@ public class EmpresaDAO {
                 empresa.setCnpj(rs.getString("cnpj"));
                 empresa.setCEP(rs.getString("cep"));
                 empresa.setLogradouro(rs.getString("logradouro"));
-                empresa.setAddressNumber(rs.getString("addressNumber"));
+                empresa.setAddressNumber(rs.getString("numero"));
                 empresa.setComplement(rs.getString("complement"));
-                empresa.setNeighborhood(rs.getString("neighborhood"));
-                empresa.setCity(rs.getString("city"));
-                empresa.setState(rs.getString("state"));
+                empresa.setNeighborhood(rs.getString("bairro"));
+                empresa.setCity(rs.getString("cidade"));
+                empresa.setState(rs.getString("estado"));
                 empresa.setIdGerente(rs.getString("idGerente"));
                 lista.add(empresa);
             }
@@ -204,11 +189,11 @@ public class EmpresaDAO {
                 empresa.setCnpj(rs.getString("cnpj"));
                 empresa.setCEP(rs.getString("cep"));
                 empresa.setLogradouro(rs.getString("logradouro"));
-                empresa.setAddressNumber(rs.getString("addressNumber"));
+                empresa.setAddressNumber(rs.getString("numero"));
                 empresa.setComplement(rs.getString("complement"));
-                empresa.setNeighborhood(rs.getString("neighborhood"));
-                empresa.setCity(rs.getString("city"));
-                empresa.setState(rs.getString("state"));
+                empresa.setNeighborhood(rs.getString("bairro"));
+                empresa.setCity(rs.getString("cidade"));
+                empresa.setState(rs.getString("estado"));
                 empresa.setIdGerente(rs.getString("idGerente"));
                 lista.add(empresa);
             }
@@ -242,11 +227,11 @@ public class EmpresaDAO {
                 empresa.setCnpj(rs.getString("cnpj"));
                 empresa.setCEP(rs.getString("cep"));
                 empresa.setLogradouro(rs.getString("logradouro"));
-                empresa.setAddressNumber(rs.getString("addressNumber"));
+                empresa.setAddressNumber(rs.getString("numero"));
                 empresa.setComplement(rs.getString("complement"));
-                empresa.setNeighborhood(rs.getString("neighborhood"));
-                empresa.setCity(rs.getString("city"));
-                empresa.setState(rs.getString("state"));
+                empresa.setNeighborhood(rs.getString("bairro"));
+                empresa.setCity(rs.getString("cidade"));
+                empresa.setState(rs.getString("estado"));
                 empresa.setIdGerente(rs.getString("idGerente"));
             }
 
@@ -278,11 +263,11 @@ public class EmpresaDAO {
                 empresa.setCnpj(rs.getString("cnpj"));
                 empresa.setCEP(rs.getString("cep"));
                 empresa.setLogradouro(rs.getString("logradouro"));
-                empresa.setAddressNumber(rs.getString("addressNumber"));
+                empresa.setAddressNumber(rs.getString("numero"));
                 empresa.setComplement(rs.getString("complement"));
-                empresa.setNeighborhood(rs.getString("neighborhood"));
-                empresa.setCity(rs.getString("city"));
-                empresa.setState(rs.getString("state"));
+                empresa.setNeighborhood(rs.getString("bairro"));
+                empresa.setCity(rs.getString("cidade"));
+                empresa.setState(rs.getString("estado"));
                 empresa.setIdGerente(rs.getString("idGerente"));
             }
 
@@ -313,11 +298,11 @@ public class EmpresaDAO {
                 empresa.setCnpj(rs.getString("cnpj"));
                 empresa.setCEP(rs.getString("cep"));
                 empresa.setLogradouro(rs.getString("logradouro"));
-                empresa.setAddressNumber(rs.getString("addressNumber"));
+                empresa.setAddressNumber(rs.getString("numero"));
                 empresa.setComplement(rs.getString("complement"));
-                empresa.setNeighborhood(rs.getString("neighborhood"));
-                empresa.setCity(rs.getString("city"));
-                empresa.setState(rs.getString("state"));
+                empresa.setNeighborhood(rs.getString("bairro"));
+                empresa.setCity(rs.getString("cidade"));
+                empresa.setState(rs.getString("estado"));
                 empresa.setIdGerente(rs.getString("idGerente"));
             }
 

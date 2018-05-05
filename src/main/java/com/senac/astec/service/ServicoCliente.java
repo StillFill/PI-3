@@ -7,6 +7,7 @@ package com.senac.astec.service;
 import com.senac.astec.dao.ClienteDAO;
 import com.senac.astec.model.Cliente;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 //Classe de servico do cliente
 public class ServicoCliente {

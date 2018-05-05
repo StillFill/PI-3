@@ -11,30 +11,34 @@ import java.util.List;
 
 public class Venda {
     private Integer codigo;
-    private Integer codigoCliente;
-    private Date data;
+    private Date dataCriacao;
     private Double valorTotal;
-    private Integer codigoEmpresa; //crud >> insert getCodigo();
-    private String nomecliente;
-    private String nomeempresa;
+    private Integer codigoEmpresa;
+    private Integer codigoCliente;
 
-    public String getNomeempresa() {
-        return nomeempresa;
-    }
-
-    public void setNomeempresa(String nomeempresa) {
-        this.nomeempresa = nomeempresa;
-    }
-    
-    
-    public String getNomecliente() {
-        return nomecliente;
+    public Date getDataCriacao() {
+        return dataCriacao;
     }
 
-    public void setNomecliente(String nomecliente) {
-        this.nomecliente = nomecliente;
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
-    
+
+    public Integer getCodigoEmpresa() {
+        return codigoEmpresa;
+    }
+
+    public void setCodigoEmpresa(Integer codigoEmpresa) {
+        this.codigoEmpresa = codigoEmpresa;
+    }
+
+    public Integer getCodigoCliente() {
+        return codigoCliente;
+    }
+
+    public void setCodigoCliente(Integer codigoCliente) {
+        this.codigoCliente = codigoCliente;
+    }
     
     public int getEmpresa() {
         return codigoEmpresa;
@@ -58,14 +62,6 @@ public class Venda {
 
     public void setCliente(int cliente) {
         this.codigoCliente = cliente;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
     }
 
     public Double getValorTotal() {
