@@ -27,7 +27,7 @@ public class VendaDAO {
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, venda.getCliente());
-            preparedStatement.setDate(2, (Date) venda.getData());
+            preparedStatement.setDate(2, (Date) venda.getDataCriacao());
             preparedStatement.setDouble(3,venda.getValorTotal());
             preparedStatement.setInt(4,venda.getEmpresa());
             
@@ -79,10 +79,9 @@ public class VendaDAO {
                 Venda venda = new Venda();
                 
                 venda.setCodigo(rs.getInt(1));
-                venda.setNomecliente(rs.getString(2));
-                venda.setData(rs.getDate(3));
+                venda.setDataCriacao(rs.getDate(3));
                 venda.setValorTotal(rs.getDouble(4));
-                venda.setNomeempresa(rs.getString(5));
+                venda.setCodigoEmpresa(rs.getInt(5));
                 listadevendas.add(venda);
             }
             

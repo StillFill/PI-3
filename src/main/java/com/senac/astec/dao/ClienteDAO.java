@@ -19,66 +19,76 @@ public class ClienteDAO {
 
     ConexaoBanco conexaoBanco = new ConexaoBanco();
 
-    Connection conn = conexaoBanco.createConnection();
+    Connection conn;
+    
+    public ClienteDAO(){
+        this.conn = ConexaoBanco.createConnection();
+    }
 
     public void inserirCliente(Cliente cliente) {
 
-        String query = " insert into clientes (nome, sobrenome, sexo, cpf, rg, datanasc, telefone, telefone2, email,"
-                + "endereco, numero, complemento, cep, cidade, estado, codigoempresa)"
-                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+        String query = "INSERT INTO cliente(nome, dataNasc, rg, cpf, sexo, telefone, celular, email,"
+                + "cep, logradouro, numero, complemento, bairro, cidade, estado, enabled, codigoEmpresa) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            preparedStatement.setString(1, cliente.getName());
-            preparedStatement.setString(4, cliente.getBirthday());
-            preparedStatement.setString(5, cliente.getDocumentNumber());
-            preparedStatement.setString(6, cliente.getCpf());
-            preparedStatement.setString(6, cliente.getGender());
-            preparedStatement.setString(6, cliente.getPhone());
-            preparedStatement.setString(7, cliente.getCellphone());
+            preparedStatement.setString(1, cliente.getNome());
+            preparedStatement.setString(2, cliente.getDataNasc());
+            preparedStatement.setString(3, cliente.getRg());
+            preparedStatement.setString(4, cliente.getCpf());
+            preparedStatement.setString(5, cliente.getSexo());
+            preparedStatement.setString(6, cliente.getTelefone());
+            preparedStatement.setString(7, cliente.getCelular());
             preparedStatement.setString(8, cliente.getEmail());
-            preparedStatement.setString(9, cliente.getCEP());
+            preparedStatement.setString(9, cliente.getCep());
             preparedStatement.setString(10, cliente.getLogradouro());
-            preparedStatement.setString(12, cliente.getAddressNumber());
-            preparedStatement.setString(13, cliente.getComplement());
-            preparedStatement.setString(14, cliente.getNeighborhood());
-            preparedStatement.setString(15, cliente.getCity());
-            preparedStatement.setString(16, cliente.getState());
-            preparedStatement.setInt(17, cliente.getIdEmpresa());
-
+            preparedStatement.setString(11, cliente.getNumero());
+            preparedStatement.setString(12, cliente.getComplemento());
+            preparedStatement.setString(13, cliente.getBairro());
+            preparedStatement.setString(14, cliente.getCidade());
+            preparedStatement.setString(15, cliente.getEstado());
+            preparedStatement.setBoolean(16, true);
+            preparedStatement.setInt(17, cliente.getCodigoempresa());
+            System.out.println("deu bom");
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException ex) {
+            System.out.println("deu ruim");
             System.out.println("Erro ao salvar cliente" + ex);
         }
     }
 
     public Cliente updateCliente(Cliente cliente) throws Exception {
         System.out.println("Iniciando processo de atualização de cliente...");
-        String query = "UPDATE clientes SET nome=?, sobrenome=?, sexo=?, rg=?, datanasc=?, telefone=?, telefone2=?, email=?, "
-                + "endereco=?,  numero=?, complemento=?, cidade=?,  estado=?, codigoempresa=?, cep=? WHERE cpf=?";
+        String query = "UPDATE cliente SET nome='?', dataNasc='?', rg='?',"
+                + "cpf='?', sexo='?', telefone='?', celular='?', email='?', "
+                + "cep='?', logradouro='?', numero='?', complemento='?', "
+                + "bairro='?', cidade='?', estado='?', enabled='?', codigoEmpresa='?' "
+                + "WHERE cpf='?'";
 
         System.out.println(cliente.toString());
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            preparedStatement.setString(1, cliente.getName());
-            preparedStatement.setString(4, cliente.getBirthday());
-            preparedStatement.setString(5, cliente.getDocumentNumber());
-            preparedStatement.setString(6, cliente.getCpf());
-            preparedStatement.setString(6, cliente.getGender());
-            preparedStatement.setString(6, cliente.getPhone());
-            preparedStatement.setString(7, cliente.getCellphone());
+            preparedStatement.setString(1, cliente.getNome());
+            preparedStatement.setString(2, cliente.getDataNasc());
+            preparedStatement.setString(3, cliente.getRg());
+            preparedStatement.setString(4, cliente.getCpf());
+            preparedStatement.setString(5, cliente.getSexo());
+            preparedStatement.setString(6, cliente.getTelefone());
+            preparedStatement.setString(7, cliente.getCelular());
             preparedStatement.setString(8, cliente.getEmail());
-            preparedStatement.setString(9, cliente.getCEP());
+            preparedStatement.setString(9, cliente.getCep());
             preparedStatement.setString(10, cliente.getLogradouro());
-            preparedStatement.setString(12, cliente.getAddressNumber());
-            preparedStatement.setString(13, cliente.getComplement());
-            preparedStatement.setString(14, cliente.getNeighborhood());
-            preparedStatement.setString(15, cliente.getCity());
-            preparedStatement.setString(16, cliente.getState());
-            preparedStatement.setInt(17, cliente.getIdEmpresa());
+            preparedStatement.setString(11, cliente.getNumero());
+            preparedStatement.setString(12, cliente.getComplemento());
+            preparedStatement.setString(13, cliente.getBairro());
+            preparedStatement.setString(14, cliente.getCidade());
+            preparedStatement.setString(15, cliente.getEstado());
+            preparedStatement.setBoolean(16, true);
+            preparedStatement.setInt(17, cliente.getCodigoempresa());
 
             System.out.println("cpf: " + cliente.getCpf());
 
@@ -122,22 +132,23 @@ public class ClienteDAO {
                 Cliente cliente = new Cliente();
 
                 cliente.setId(rs.getInt("id"));
-                cliente.setName(rs.getString("nome"));
-                cliente.setBirthday(rs.getString("dataNasc"));
-                cliente.setDocumentNumber(rs.getString("rg"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setDataNasc(rs.getString("dataNasc"));
+                cliente.setRg(rs.getString("rg"));
                 cliente.setCpf(rs.getString("cpf"));
-                cliente.setGender(rs.getString("gender"));
-                cliente.setPhone(rs.getString("phone"));
-                cliente.setCellphone(rs.getString("cellphon/e"));
+                cliente.setSexo(rs.getString("sexo"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setCelular(rs.getString("celular"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setCEP(rs.getString("cep"));
+                cliente.setCep(rs.getString("cep"));
                 cliente.setLogradouro(rs.getString("logradouro"));
-                cliente.setAddressNumber(rs.getString("addressNumber"));
-                cliente.setComplement(rs.getString("complement"));
-                cliente.setNeighborhood(rs.getString("neighborhood"));
-                cliente.setCity(rs.getString("city"));
-                cliente.setState(rs.getString("state"));
-                cliente.setIdEmpresa(rs.getInt("idEmpresa"));
+                cliente.setNumero(rs.getString("numero"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setEstado(rs.getString("estado"));
+                cliente.setEnabled(true);
+                cliente.setCodigoempresa(rs.getInt("codigoempresa"));
                 lista.add(cliente);
             }
 
@@ -168,22 +179,23 @@ public class ClienteDAO {
                 Cliente cliente = new Cliente();
 
                 cliente.setId(rs.getInt("id"));
-                cliente.setName(rs.getString("nome"));
-                cliente.setBirthday(rs.getString("dataNasc"));
-                cliente.setDocumentNumber(rs.getString("rg"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setDataNasc(rs.getString("dataNasc"));
+                cliente.setRg(rs.getString("rg"));
                 cliente.setCpf(rs.getString("cpf"));
-                cliente.setGender(rs.getString("gender"));
-                cliente.setPhone(rs.getString("phone"));
-                cliente.setCellphone(rs.getString("cellphon/e"));
+                cliente.setSexo(rs.getString("sexo"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setCelular(rs.getString("celular"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setCEP(rs.getString("cep"));
+                cliente.setCep(rs.getString("cep"));
                 cliente.setLogradouro(rs.getString("logradouro"));
-                cliente.setAddressNumber(rs.getString("addressNumber"));
-                cliente.setComplement(rs.getString("complement"));
-                cliente.setNeighborhood(rs.getString("neighborhood"));
-                cliente.setCity(rs.getString("city"));
-                cliente.setState(rs.getString("state"));
-                cliente.setIdEmpresa(rs.getInt("idEmpresa"));
+                cliente.setNumero(rs.getString("numero"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setEstado(rs.getString("estado"));
+                cliente.setEnabled(true);
+                cliente.setCodigoempresa(rs.getInt("codigoempresa"));
                 lista.add(cliente);
             }
 
@@ -212,22 +224,23 @@ public class ClienteDAO {
                 Cliente cliente = new Cliente();
 
                 cliente.setId(rs.getInt("id"));
-                cliente.setName(rs.getString("nome"));
-                cliente.setBirthday(rs.getString("dataNasc"));
-                cliente.setDocumentNumber(rs.getString("rg"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setDataNasc(rs.getString("dataNasc"));
+                cliente.setRg(rs.getString("rg"));
                 cliente.setCpf(rs.getString("cpf"));
-                cliente.setGender(rs.getString("gender"));
-                cliente.setPhone(rs.getString("phone"));
-                cliente.setCellphone(rs.getString("cellphon/e"));
+                cliente.setSexo(rs.getString("sexo"));
+                cliente.setTelefone(rs.getString("telefone"));
+                cliente.setCelular(rs.getString("celular"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setCEP(rs.getString("cep"));
+                cliente.setCep(rs.getString("cep"));
                 cliente.setLogradouro(rs.getString("logradouro"));
-                cliente.setAddressNumber(rs.getString("addressNumber"));
-                cliente.setComplement(rs.getString("complement"));
-                cliente.setNeighborhood(rs.getString("neighborhood"));
-                cliente.setCity(rs.getString("city"));
-                cliente.setState(rs.getString("state"));
-                cliente.setIdEmpresa(rs.getInt("idEmpresa"));
+                cliente.setNumero(rs.getString("numero"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setEstado(rs.getString("estado"));
+                cliente.setEnabled(true);
+                cliente.setCodigoempresa(rs.getInt("codigoempresa"));
                 lista.add(cliente);
             }
 
@@ -255,23 +268,25 @@ public class ClienteDAO {
             System.out.println("Busca efetuada com sucesso");
 
             while (rs.next()) {
-                cliente.setId(rs.getInt("id"));
-                cliente.setName(rs.getString("nome"));
-                cliente.setBirthday(rs.getString("dataNasc"));
-                cliente.setDocumentNumber(rs.getString("rg"));
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setGender(rs.getString("gender"));
-                cliente.setPhone(rs.getString("phone"));
-                cliente.setCellphone(rs.getString("cellphon/e"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setCEP(rs.getString("cep"));
-                cliente.setLogradouro(rs.getString("logradouro"));
-                cliente.setAddressNumber(rs.getString("addressNumber"));
-                cliente.setComplement(rs.getString("complement"));
-                cliente.setNeighborhood(rs.getString("neighborhood"));
-                cliente.setCity(rs.getString("city"));
-                cliente.setState(rs.getString("state"));
-                cliente.setIdEmpresa(rs.getInt("idEmpresa"));
+                cliente.setId(rs.getInt(1));
+                cliente.setNome(rs.getString(2));
+                cliente.setDataNasc(rs.getString(3));
+                cliente.setRg(rs.getString(4));
+                cliente.setCpf(rs.getString(5));
+                cliente.setSexo(rs.getString(6));
+                cliente.setTelefone(rs.getString(7));
+                cliente.setCelular(rs.getString(8));
+                cliente.setEmail(rs.getString(9));
+                cliente.setCep(rs.getString(10));
+                cliente.setLogradouro(rs.getString(11));
+                cliente.setNumero(rs.getString(12));
+                cliente.setComplemento(rs.getString(13));
+                cliente.setBairro(rs.getString(14));
+                cliente.setCidade(rs.getString(15));
+                cliente.setEstado(rs.getString(17));
+                cliente.setEnabled(true);
+                cliente.setCodigoempresa(rs.getInt("codigoempresa"));
+                
             }
 
         } catch (SQLException ex) {
@@ -297,23 +312,24 @@ public class ClienteDAO {
             System.out.println("Busca efetuada com sucesso");
 
             while (rs.next()) {
-                cliente.setId(rs.getInt("id"));
-                cliente.setName(rs.getString("nome"));
-                cliente.setBirthday(rs.getString("dataNasc"));
-                cliente.setDocumentNumber(rs.getString("rg"));
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setGender(rs.getString("gender"));
-                cliente.setPhone(rs.getString("phone"));
-                cliente.setCellphone(rs.getString("cellphon/e"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setCEP(rs.getString("cep"));
-                cliente.setLogradouro(rs.getString("logradouro"));
-                cliente.setAddressNumber(rs.getString("addressNumber"));
-                cliente.setComplement(rs.getString("complement"));
-                cliente.setNeighborhood(rs.getString("neighborhood"));
-                cliente.setCity(rs.getString("city"));
-                cliente.setState(rs.getString("state"));
-                cliente.setIdEmpresa(rs.getInt("idEmpresa"));;
+                cliente.setId(rs.getInt(1));
+                cliente.setNome(rs.getString(2));
+                cliente.setDataNasc(rs.getString(3));
+                cliente.setRg(rs.getString(4));
+                cliente.setCpf(rs.getString(5));
+                cliente.setSexo(rs.getString(6));
+                cliente.setTelefone(rs.getString(7));
+                cliente.setCelular(rs.getString(8));
+                cliente.setEmail(rs.getString(9));
+                cliente.setCep(rs.getString(10));
+                cliente.setLogradouro(rs.getString(11));
+                cliente.setNumero(rs.getString(12));
+                cliente.setComplemento(rs.getString(13));
+                cliente.setBairro(rs.getString(14));
+                cliente.setCidade(rs.getString(15));
+                cliente.setEstado(rs.getString(17));
+                cliente.setEnabled(true);
+                cliente.setCodigoempresa(rs.getInt("codigoempresa"));
             }
 
         } catch (SQLException ex) {
@@ -338,23 +354,24 @@ public class ClienteDAO {
             System.out.println("Busca efetuada com sucesso");
 
             while (rs.next()) {
-                cliente.setId(rs.getInt("id"));
-                cliente.setName(rs.getString("nome"));
-                cliente.setBirthday(rs.getString("dataNasc"));
-                cliente.setDocumentNumber(rs.getString("rg"));
-                cliente.setCpf(rs.getString("cpf"));
-                cliente.setGender(rs.getString("gender"));
-                cliente.setPhone(rs.getString("phone"));
-                cliente.setCellphone(rs.getString("cellphon/e"));
-                cliente.setEmail(rs.getString("email"));
-                cliente.setCEP(rs.getString("cep"));
-                cliente.setLogradouro(rs.getString("logradouro"));
-                cliente.setAddressNumber(rs.getString("addressNumber"));
-                cliente.setComplement(rs.getString("complement"));
-                cliente.setNeighborhood(rs.getString("neighborhood"));
-                cliente.setCity(rs.getString("city"));
-                cliente.setState(rs.getString("state"));
-                cliente.setIdEmpresa(rs.getInt("idEmpresa"));
+                cliente.setId(rs.getInt(1));
+                cliente.setNome(rs.getString(2));
+                cliente.setDataNasc(rs.getString(3));
+                cliente.setRg(rs.getString(4));
+                cliente.setCpf(rs.getString(5));
+                cliente.setSexo(rs.getString(6));
+                cliente.setTelefone(rs.getString(7));
+                cliente.setCelular(rs.getString(8));
+                cliente.setEmail(rs.getString(9));
+                cliente.setCep(rs.getString(10));
+                cliente.setLogradouro(rs.getString(11));
+                cliente.setNumero(rs.getString(12));
+                cliente.setComplemento(rs.getString(13));
+                cliente.setBairro(rs.getString(14));
+                cliente.setCidade(rs.getString(15));
+                cliente.setEstado(rs.getString(17));
+                cliente.setEnabled(true);
+                cliente.setCodigoempresa(rs.getInt("codigoempresa"));
             }
 
         } catch (SQLException ex) {
@@ -366,12 +383,13 @@ public class ClienteDAO {
 
     public void deletarCliente(String cpf, int codigoempresa) throws Exception {
         System.out.println("Deletando clientes de cpf: " + cpf);
-        String query = "DELETE FROM clientes WHERE cpf=? and codigoempresa=?";
+        String query = "UPDATE cliente SET enabled='?' WHERE cpf='?' and codigoempresa='?'";
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setString(1, cpf);
-            preparedStatement.setInt(2, codigoempresa);
+            preparedStatement.setBoolean(1, false);
+            preparedStatement.setString(2, cpf);
+            preparedStatement.setInt(3, codigoempresa);
 
             preparedStatement.execute();
             System.out.println("Cliente deletado");

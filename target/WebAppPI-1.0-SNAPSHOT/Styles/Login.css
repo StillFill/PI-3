@@ -3,7 +3,6 @@ body {
 }
 
 .application-container {
-	margin: 7em 0;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;

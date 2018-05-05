@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="Styles/Login.css">
 	<link rel="stylesheet" type="text/css" href="Styles/Cadastros.css">
 	<meta charset="utf-8">
-	<title>Cadastro de Imóveis</title>
+	<title>Cadastro de clientes</title>
 </head>
 <body>
     <form method="post">
