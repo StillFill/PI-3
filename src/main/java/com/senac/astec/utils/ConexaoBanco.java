@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class ConexaoBanco {
     
     public static Connection createConnection(){
-        String url = "jdbc:mysql://localhost:3306/imobiliaria";
+        String url = "jdbc:mysql://127.0.0.1:3306/imobiliaria";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conn = DriverManager.getConnection (url, "root", "");

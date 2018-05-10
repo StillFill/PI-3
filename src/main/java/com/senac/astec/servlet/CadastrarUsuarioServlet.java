@@ -5,6 +5,8 @@
  */
 package com.senac.astec.servlet;
 
+import com.senac.astec.AbstracClass.CreatedTokenAbstract;
+import com.senac.astec.BusinessRule.CreatedToken;
 import com.senac.astec.dao.LoginDAO;
 import com.senac.astec.model.Login;
 import com.senac.astec.service.ServicoLogin;
@@ -29,10 +31,36 @@ public class CadastrarUsuarioServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+       @Override
+    protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        HttpSession session = req.getSession(false);
+
+        if (session == null) {
+            req.getRequestDispatcher("Pages/Login.jsp").forward(req, resp);
+        }
+
+        if (session.getAttribute("token") == null) {
+            req.getRequestDispatcher("Pages/Login.jsp").forward(req, resp);
+        }
+
+
+        String token = (String) session.getAttribute("token");
+        //instanciando classe responsavel pelo token
+        CreatedTokenAbstract jwt = new CreatedToken();
+        //analisando token
+        if (!jwt.codificarToken(token)) {
+            resp.setStatus(resp.SC_FORBIDDEN);
+        }
+    }
+    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         RequestDispatcher dispatcher
+        doHead(request, response);
+        
+        RequestDispatcher dispatcher
 	    = request.getRequestDispatcher("/cadastroUsuario.jsp");
         dispatcher.forward(request, response);
     }

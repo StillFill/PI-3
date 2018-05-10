@@ -5,8 +5,11 @@
  */
 package com.senac.astec.servlet;
 
+import com.senac.astec.AbstracClass.CreatedTokenAbstract;
+import com.senac.astec.BusinessRule.CreatedToken;
 import com.senac.astec.dao.ClienteDAO;
 import com.senac.astec.model.Cliente;
+import com.senac.astec.model.Token;
 import com.senac.astec.service.ServicoCliente;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,15 +23,51 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "cadastrarCliente", urlPatterns = {"/cadastrar-cliente"})
 public class CadastrarClienteServlet extends HttpServlet {
-    
+
+    @Override
+    protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        HttpSession session = req.getSession(false);
+
+        if (session == null) {
+            req.getRequestDispatcher("Pages/Login.jsp").forward(req, resp);
+        }
+
+        if (session.getAttribute("token") == null) {
+            req.getRequestDispatcher("Pages/Login.jsp").forward(req, resp);
+        }
+
+        String token = (String) session.getAttribute("token");
+        //instanciando classe responsavel pelo token
+        CreatedTokenAbstract jwt = new CreatedToken();
+        //analisando token
+        if (!jwt.codificarToken(token)) {
+            resp.setStatus(resp.SC_FORBIDDEN);
+        }
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String destino = "Pages/CadastrarCliente.jsp";
+
+        doHead(request, response);
         
+        
+        HttpSession session = request.getSession(false);
+
+        String tokenJwt = (String) session.getAttribute("token");
+
+        CreatedTokenAbstract jwt = new CreatedToken();
+
+        Token token = (Token) jwt.decodeToken(tokenJwt);
+        
+        
+        
+        String destino = "Pages/CadastrarCliente.jsp";
+
         RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
         dispatcher.forward(request, response);
-        
+
     }
 
     /**
@@ -42,7 +81,6 @@ public class CadastrarClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
 
         request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
@@ -62,47 +100,43 @@ public class CadastrarClienteServlet extends HttpServlet {
         String state = request.getParameter("state");
         PrintWriter imprimir = response.getWriter();
         Cliente newClient = new Cliente();
-            newClient.setNome(name);
-            newClient.setDataNasc(birthday);
-            newClient.setRg(documentNumber);
-            newClient.setCpf(cpf);
-            newClient.setSexo(gender);
-            newClient.setTelefone(phone);
-            newClient.setCelular(cellphone);
-            newClient.setEmail(email);
-            newClient.setCep(cep);
-            newClient.setLogradouro(logradouro);
-            newClient.setNumero(addressNumber);
-            newClient.setComplemento(complement);
-            newClient.setBairro(neighborhood);
-            newClient.setCidade(city);
-            newClient.setEstado(state);
-            newClient.setEnabled(true);
+        newClient.setNome(name);
+        newClient.setDataNasc(birthday);
+        newClient.setRg(documentNumber);
+        newClient.setCpf(cpf);
+        newClient.setSexo(gender);
+        newClient.setTelefone(phone);
+        newClient.setCelular(cellphone);
+        newClient.setEmail(email);
+        newClient.setCep(cep);
+        newClient.setLogradouro(logradouro);
+        newClient.setNumero(addressNumber);
+        newClient.setComplemento(complement);
+        newClient.setBairro(neighborhood);
+        newClient.setCidade(city);
+        newClient.setEstado(state);
+        newClient.setEnabled(true);
 //            newClient.setCodigoempresa();
         ServicoCliente servicoCliente = new ServicoCliente();
         try {
-            servicoCliente.cadastrarCliente(newClient);  
+            servicoCliente.cadastrarCliente(newClient);
             imprimir.println("deu bom");
-        } catch(Exception e) {
+        } catch (Exception e) {
             imprimir.println("deu ruim");
         }
 
 //        response.sendRedirect(request.getContextPath() + "/cadastrar-cliente");
     }
+
     // deletar
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doDelete(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     // atualizar
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
-    }
-    // recebe sessão, token,
-    @Override
-    protected void doHead(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doHead(req, resp); //To change body of generated methods, choose Tools | Templates.
     }
 }

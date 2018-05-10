@@ -11,8 +11,22 @@ public class Login {
    private String login;
    private String senha;
    private String tipoLogin;
+   private int idFuncionario;
    private boolean enabled;
 
+    public Login(int idLogin, String nome, String login, String senha, String tipoLogin, int idFuncionario,boolean enabled) {
+        this.idLogin = idLogin;
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+        this.tipoLogin = tipoLogin;
+        this.idFuncionario = idFuncionario;
+        this.enabled = enabled;
+    }
+
+    public Login() {
+    }
+    
     public int getIdLogin() {
         return idLogin;
     }
@@ -60,5 +74,15 @@ public class Login {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public int getIdFuncionario() {
+        return idFuncionario;
+    }
+
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
+    }
+    
+    
 
 }

@@ -9,19 +9,22 @@
         <servlet-name>cadastrarCliente</servlet-name>
         <servlet-class>com.senac.astec.servlet.CadastrarClienteServlet</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>cadastrarImovel</servlet-name>
         <servlet-class>com.senac.astec.servlet.CadastrarImovelServlet</servlet-class>
     </servlet>
-    
-    
-    
+    <servlet>
+        <servlet-name>Login Servlet</servlet-name>
+        <servlet-class>com.senac.astec.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login Servlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>cadastrarCliente</servlet-name>
         <url-pattern>/cadastrar-cliente</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>cadastrarImovel</servlet-name>
         <url-pattern>/cadastrar-imovel</url-pattern>
