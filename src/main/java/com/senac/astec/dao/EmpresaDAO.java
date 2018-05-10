@@ -21,7 +21,7 @@ public class EmpresaDAO {
 
     Connection conn = conexaoBanco.createConnection();
 
-    public void inserirCliente(Empresa empresa) {
+    public void inserirEmpresa(Empresa empresa) {
 
         String query = " insert into empresas (nome, cnpj, cep, logradouro, numero, compemento, bairro, cidade, estado, idLogin)"
                 + " values (?, ?, ? ,? ,? ,? ,? ,? ,?, ?, ?)";
