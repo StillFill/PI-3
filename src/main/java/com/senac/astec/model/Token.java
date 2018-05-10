@@ -5,11 +5,6 @@
  */
 package com.senac.astec.model;
 
-/**
- *
- * @author Kayque Rodrigues esta classe tem como objetivo obter um objeto do
- * token(jwt)
- */
 public class Token {
 
     //atributo de cadas token
@@ -20,10 +15,20 @@ public class Token {
     //id do usuario dono do token
     private int id;
     
+    private String tipoLogin;
+    
     private int idFuncionario;
 
     //metudo construtor do token vazio
     public Token() {
+    }
+
+    public String getTipoLogin() {
+        return tipoLogin;
+    }
+
+    public void setTipoLogin(String tipoLogin) {
+        this.tipoLogin = tipoLogin;
     }
 
     //getters e setters

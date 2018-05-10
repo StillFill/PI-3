@@ -61,8 +61,7 @@ public class CadastrarClienteServlet extends HttpServlet {
 
         Token token = (Token) jwt.decodeToken(tokenJwt);
         
-        
-        
+        System.out.println("TOKEN DO CLIENTE "+token.getTipoLogin());
         String destino = "Pages/CadastrarCliente.jsp";
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(destino);

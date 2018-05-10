@@ -17,7 +17,17 @@ public class Empresa {
     private String city;
     private String state;
     private String idGerente;
+    private String tipo;
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    
     public int getId() {
         return id;
     }

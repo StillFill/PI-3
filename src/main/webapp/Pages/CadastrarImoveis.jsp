@@ -17,7 +17,6 @@
     <form method="post">
         <div class="application-container">
 		<div class="form-container">
-                    <button type="button" onClick="pushTo()"></button>
 			<div class="form-header">CADASTRO DE IMÓVEIS</div>
 			<div class="form-content">
 				<div class="form-block">

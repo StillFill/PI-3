@@ -70,22 +70,26 @@ public class LoginServlet extends HttpServlet {
             jsonObject.addProperty("exp", expires.getTime());
 
             jsonObject.addProperty("id", login.getIdLogin());
+            
+            jsonObject.addProperty("tipoLogin", login.getTipoLogin());
 
             jsonObject.addProperty("idFuncionario", login.getIdFuncionario());
             CreatedTokenAbstract token = new CreatedToken();
 
             HttpSession sessao = request.getSession();
             sessao.setAttribute("token", token.token(jsonObject));
-            String path = "";
-            if (user.getTipoLogin().equals("dono")) {
-               path = "Pages/CadastrarFilial.jsp";
-            } else if (user.getTipoLogin().equals("funcionario")) {
-               path = "Pages/EfetuarVenda.jsp";
-            } else if (user.getTipoLogin().equals("admin")){
-               path = "Pages/CadastrarSede.jsp";
-            }
+            String path = "Pages/CadastrarCliente.jsp";
+//            if (user.getTipoLogin().equals("dono")) {
+//               path = "Pages/CadastrarFilial.jsp";
+//            } else if (user.getTipoLogin().equals("funcionario")) {
+//               path = "Pages/EfetuarVenda.jsp";
+//            } else if (user.getTipoLogin().equals("admin")){
+//               path = "Pages/CadastrarSede.jsp";
+//            }
+            System.out.println("mandou pro path");
             request.getRequestDispatcher(path).forward(request, response);
         } else {
+            System.out.println("entro no else");
             request.getRequestDispatcher("Pages/Login.jsp").forward(request, response);
         }
 
