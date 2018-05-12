@@ -11,10 +11,6 @@ import java.security.GeneralSecurityException;;
 import com.google.gson.JsonObject;
 import com.senac.astec.model.Token;
 
-/**
- *
- * @author Kayque Rodrigues
- */
 public abstract class CreatedTokenAbstract extends Token {
 
     public CreatedTokenAbstract() {

@@ -20,10 +20,6 @@ import javax.xml.bind.DatatypeConverter;
 import com.senac.astec.model.Login;
 import com.senac.astec.model.Token;
 
-/**
- *
- * @author Kayque Rodrigues esta classe tem como onjetivo criar um token (JWT)
- */
 public class CreatedToken extends CreatedTokenAbstract {
 
     //constante chave de acesso
