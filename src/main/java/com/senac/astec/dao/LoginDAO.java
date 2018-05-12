@@ -5,13 +5,10 @@ import com.senac.astec.utils.ConexaoBanco;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class LoginDAO extends ConexaoBanco {
     
@@ -21,17 +18,18 @@ public class LoginDAO extends ConexaoBanco {
     //insere novo usuário
     public void inserirLogin(Login login) {
         System.out.println("Iniciando processo de inserção de Login...");
-        String query = "INSERT INTO login(nomeFuncionario, login, senha, tipoLogin, enabled) "
-                + "VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO login(idFuncionario, login, senha, tipoLogin, idEmpresa, enabled) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
-            preparedStatement.setString(1, login.getNome());
+            preparedStatement.setInt(1, login.getIdFuncionario());
             preparedStatement.setString(2, login.getLogin());
             preparedStatement.setString(3, login.getSenha());
             preparedStatement.setString(4, login.getTipoLogin());
-            preparedStatement.setBoolean(5, login.isEnabled());
+            preparedStatement.setInt(5, login.getIdEmpresa());
+            preparedStatement.setBoolean(6, true);
             
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -111,16 +109,16 @@ public class LoginDAO extends ConexaoBanco {
     }
 
     //encontra usuário por código
-    public Login encontrarLogin(Login login) {//retorna um item
+    public Login encontrarLogin(String username, String senha) {//retorna um item
         System.out.println("Buscando Usuário na base de dados...");
         System.out.println("estranho");
-        String query = "SELECT idLogin, idFuncionario, login, senha, tipoLogin,enabled FROM login WHERE login = ? and senha = ?";
-        
+        String query = "SELECT idLogin, idFuncionario, login, senha, tipoLogin, idEmpresa, enabled FROM login WHERE login = ? and senha = ?";
+        Login login = new Login();
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             
-            preparedStatement.setString(1, login.getLogin());
-            preparedStatement.setString(2, login.getSenha());
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, senha);
             System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
@@ -129,7 +127,8 @@ public class LoginDAO extends ConexaoBanco {
                 login.setLogin(rs.getString(3));
                 login.setSenha(rs.getString(4));
                 login.setTipoLogin(rs.getString(5));
-                login.setEnabled(rs.getBoolean(6));
+                login.setIdEmpresa(rs.getInt(6));
+                login.setEnabled(rs.getBoolean(7));
             } else {
                 System.out.println("não achou ninguem");
                 return null;

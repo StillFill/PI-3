@@ -6,7 +6,6 @@
  */
 package com.senac.astec.service;
 import com.senac.astec.dao.LoginDAO;
-import com.senac.astec.model.Cliente;
 import com.senac.astec.model.Login;
 import java.io.IOException;
 import java.util.List;

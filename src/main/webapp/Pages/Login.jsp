@@ -6,6 +6,12 @@
         <link rel="stylesheet" type="text/css" href="Styles/Login.css">
         <title>Login</title>
     </head>
+    <script type="text/javascript">
+     function pushTo(route){
+         alert(route);
+    window.location.pathname = route;
+ }
+</script>
     <body>
         <form method="post" action="http://localhost:8080/astec/login">
             <div class="application-container">

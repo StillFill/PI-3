@@ -36,12 +36,11 @@ public class ServicoCliente {
     }
 
     //Realiza a pesquisa de um cliente por nome na fonte de dados
-    public List<Cliente> procurarCliente(String nome, int codigoempresa) throws IOException, Exception {
+    public Cliente procurarCliente(int id) throws IOException, Exception {
         try {
-            return clienteDAO.listarCliente(nome, codigoempresa);
-            
+            return clienteDAO.encontrarClientePorId(id);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("EROR AO PROCURAR CLIENTE: "+ e);
             return null;
         }
     }
@@ -74,10 +73,10 @@ public class ServicoCliente {
 
 
     //Exclui o cliente com ID informado do mock
-    public void excluirCliente(String cpf, int codigoempresa) throws IOException, Exception {
+    public void excluirCliente(int idCliente) throws IOException, Exception {
         try {
             //Solicita ao DAO a exclusão do cliente informado
-            clienteDAO.deletarCliente(cpf, codigoempresa);
+            clienteDAO.deletarCliente(idCliente);
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
             //uma exceção e uma mensagem amigável a camada de visão

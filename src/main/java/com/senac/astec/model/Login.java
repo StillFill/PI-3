@@ -12,6 +12,7 @@ public class Login {
    private String senha;
    private String tipoLogin;
    private int idFuncionario;
+   private int idEmpresa;
    private boolean enabled;
 
     public Login(int idLogin, String nome, String login, String senha, String tipoLogin, int idFuncionario,boolean enabled) {
@@ -25,6 +26,14 @@ public class Login {
     }
 
     public Login() {
+    }
+    
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
     
     public int getIdLogin() {

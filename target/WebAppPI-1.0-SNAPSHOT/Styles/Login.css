@@ -4,9 +4,8 @@ body {
 
 .application-container {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
-	height: 100vh;
 }
 
 .inputs-container{

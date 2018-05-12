@@ -28,7 +28,7 @@ public class ClienteDAO {
     public void inserirCliente(Cliente cliente) {
 
         String query = "INSERT INTO cliente(nome, dataNasc, rg, cpf, sexo, telefone, celular, email,"
-                + "cep, logradouro, numero, complemento, bairro, cidade, estado, enabled, codigoEmpresa) "
+                + "cep, logradouro, numero, complemento, bairro, cidade, estado, idEmpresa, enabled) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try {
@@ -49,8 +49,9 @@ public class ClienteDAO {
             preparedStatement.setString(13, cliente.getBairro());
             preparedStatement.setString(14, cliente.getCidade());
             preparedStatement.setString(15, cliente.getEstado());
-            preparedStatement.setBoolean(16, true);
-            preparedStatement.setInt(17, cliente.getCodigoempresa());
+            System.out.println(cliente.getCodigoempresa());
+            preparedStatement.setInt(16, cliente.getCodigoempresa());
+            preparedStatement.setBoolean(17, true);
             System.out.println("deu bom");
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -62,16 +63,16 @@ public class ClienteDAO {
 
     public Cliente updateCliente(Cliente cliente) throws Exception {
         System.out.println("Iniciando processo de atualização de cliente...");
-        String query = "UPDATE cliente SET nome='?', dataNasc='?', rg='?',"
-                + "cpf='?', sexo='?', telefone='?', celular='?', email='?', "
-                + "cep='?', logradouro='?', numero='?', complemento='?', "
-                + "bairro='?', cidade='?', estado='?', enabled='?', codigoEmpresa='?' "
-                + "WHERE cpf='?'";
+        String query = "UPDATE cliente SET nome=?, dataNasc=?, rg=?,"
+                + "cpf=?, sexo=?, telefone=?, celular=?, email=?, "
+                + "cep=?, logradouro=?, numero=?, complemento=?, "
+                + "bairro=?, cidade=?, estado=?, idEmpresa=?, enabled=? "
+                + "WHERE idCliente=?";
 
-        System.out.println(cliente.toString());
         try {
+            System.out.println(cliente.getNome());
+            System.out.println(cliente.getId());
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
             preparedStatement.setString(1, cliente.getNome());
             preparedStatement.setString(2, cliente.getDataNasc());
             preparedStatement.setString(3, cliente.getRg());
@@ -87,8 +88,9 @@ public class ClienteDAO {
             preparedStatement.setString(13, cliente.getBairro());
             preparedStatement.setString(14, cliente.getCidade());
             preparedStatement.setString(15, cliente.getEstado());
-            preparedStatement.setBoolean(16, true);
-            preparedStatement.setInt(17, cliente.getCodigoempresa());
+            preparedStatement.setInt(16, cliente.getCodigoempresa());
+            preparedStatement.setBoolean(17, true);
+            preparedStatement.setInt(18, cliente.getId());
 
             System.out.println("cpf: " + cliente.getCpf());
 
@@ -343,14 +345,13 @@ public class ClienteDAO {
         System.out.println("Iniciando listagem de cliente...");
 
         Cliente cliente = new Cliente();
-        String query = "SELECT * FROM clientes WHERE id=?";
-
+        String query = "SELECT * FROM cliente WHERE idCliente=?";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, String.valueOf(id));
+            preparedStatement.setInt(1, id);
 
+            System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
-
             System.out.println("Busca efetuada com sucesso");
 
             while (rs.next()) {
@@ -371,25 +372,23 @@ public class ClienteDAO {
                 cliente.setCidade(rs.getString(15));
                 cliente.setEstado(rs.getString(17));
                 cliente.setEnabled(true);
-                cliente.setCodigoempresa(rs.getInt("codigoempresa"));
+                cliente.setCodigoempresa(rs.getInt("idEmpresa"));
             }
 
-        } catch (SQLException ex) {
-            throw new Exception("Erro ao listar cliente", ex);
+        } catch (Exception ex) {
+            System.out.println("ERRO AO ENCONTRAR CLIENTE NO BANCO: " + ex);
         }
 
         return cliente;
     }
 
-    public void deletarCliente(String cpf, int codigoempresa) throws Exception {
-        System.out.println("Deletando clientes de cpf: " + cpf);
-        String query = "UPDATE cliente SET enabled='?' WHERE cpf='?' and codigoempresa='?'";
+    public void deletarCliente(int clienteId) throws Exception {
+        System.out.println("Deletando clientes de cpf: " + clienteId);
+        String query = "UPDATE cliente SET enabled='0' WHERE idCliente = ?";
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setBoolean(1, false);
-            preparedStatement.setString(2, cpf);
-            preparedStatement.setInt(3, codigoempresa);
+            preparedStatement.setInt(1, clienteId);
 
             preparedStatement.execute();
             System.out.println("Cliente deletado");

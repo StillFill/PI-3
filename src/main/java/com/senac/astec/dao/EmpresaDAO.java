@@ -21,14 +21,18 @@ public class EmpresaDAO {
 
     Connection conn = conexaoBanco.createConnection();
 
-    public void inserirCliente(Empresa empresa) {
+    public int inserirEmpresa(Empresa empresa) {
 
-        String query = " insert into empresas (nome, cnpj, cep, logradouro, numero, compemento, bairro, cidade, estado, idLogin)"
+        String query = " insert into empresa (nome, cnpj, cep, logradouro, numero, complemento, bairro, cidade, estado, tipo, enabled)"
                 + " values (?, ?, ? ,? ,? ,? ,? ,? ,?, ?, ?)";
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-
+            System.out.println(empresa.getName());
+            System.out.println(empresa.getCnpj());
+            System.out.println(empresa.getCEP());
+            System.out.println(empresa.getLogradouro());
+            System.out.println(empresa.getTipo());
             preparedStatement.setString(1, empresa.getName());
             preparedStatement.setString(2, empresa.getCnpj());
             preparedStatement.setString(3, empresa.getCEP());
@@ -38,13 +42,25 @@ public class EmpresaDAO {
             preparedStatement.setString(7, empresa.getNeighborhood());
             preparedStatement.setString(8, empresa.getCity());
             preparedStatement.setString(9, empresa.getState());
-            preparedStatement.setString(10, empresa.getIdGerente());
+            preparedStatement.setString(10, empresa.getTipo());
+            preparedStatement.setBoolean(11, true);
 
             preparedStatement.executeUpdate();
+
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+
+            if (rs.next()) {
+                System.out.println("tem next");
+                int id = rs.getInt(1);
+                System.out.println("Inserted ID -" + id); // display inserted record
+                return id;
+            }
+
             preparedStatement.close();
         } catch (SQLException ex) {
             System.out.println("Erro ao salvar empresa" + ex);
         }
+        return 0;
     }
 
     public Empresa updateEmpresa(Empresa empresa) throws Exception {
@@ -117,8 +133,7 @@ public class EmpresaDAO {
                 empresa.setCity(rs.getString("cidade"));
                 empresa.setState(rs.getString("estado"));
                 empresa.setIdGerente(rs.getString("idGerente"));
-                
-                
+
                 lista.add(empresa);
             }
 

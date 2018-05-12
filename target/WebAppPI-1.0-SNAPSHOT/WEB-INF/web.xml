@@ -10,12 +10,24 @@
         <servlet-class>com.senac.astec.servlet.CadastrarClienteServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>consultarCliente</servlet-name>
+        <servlet-class>com.senac.astec.servlet.ConsultarClientesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>cadastrarFuncionario</servlet-name>
+        <servlet-class>com.senac.astec.servlet.CadastrarFuncionarioServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>cadastrarImovel</servlet-name>
         <servlet-class>com.senac.astec.servlet.CadastrarImovelServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Login Servlet</servlet-name>
         <servlet-class>com.senac.astec.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>cadastrarEmpresa</servlet-name>
+        <servlet-class>com.senac.astec.servlet.CadastrarEmpresaServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login Servlet</servlet-name>
@@ -28,5 +40,17 @@
     <servlet-mapping>
         <servlet-name>cadastrarImovel</servlet-name>
         <url-pattern>/cadastrar-imovel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cadastrarFuncionario</servlet-name>
+        <url-pattern>/cadastrar-funcionario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cadastrarEmpresa</servlet-name>
+        <url-pattern>/cadastrar-empresa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>consultarClientes</servlet-name>
+        <url-pattern>/consultar-clientes</url-pattern>
     </servlet-mapping>
 </web-app>

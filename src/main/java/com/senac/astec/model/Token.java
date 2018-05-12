@@ -18,9 +18,19 @@ public class Token {
     private String tipoLogin;
     
     private int idFuncionario;
+    
+    private int idEmpresa;
 
     //metudo construtor do token vazio
     public Token() {
+    }
+
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     public String getTipoLogin() {

@@ -53,10 +53,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Login login = new Login(0, null, request.getParameter("username"), request.getParameter("senha"), null, 0, true);
-
         LoginDAO loginDAO = new LoginDAO();
-        Login user = loginDAO.encontrarLogin(login);
+        Login user = loginDAO.encontrarLogin(request.getParameter("username"), request.getParameter("senha"));
         if (user != null) {
             
             Date dateNow = new Date();
@@ -69,24 +67,26 @@ public class LoginServlet extends HttpServlet {
 
             jsonObject.addProperty("exp", expires.getTime());
 
-            jsonObject.addProperty("id", login.getIdLogin());
+            jsonObject.addProperty("id", user.getIdLogin());
             
-            jsonObject.addProperty("tipoLogin", login.getTipoLogin());
+            jsonObject.addProperty("tipoLogin", user.getTipoLogin());
+            jsonObject.addProperty("idEmpresa", user.getIdEmpresa());
 
-            jsonObject.addProperty("idFuncionario", login.getIdFuncionario());
+            jsonObject.addProperty("idFuncionario", user.getIdFuncionario());
             CreatedTokenAbstract token = new CreatedToken();
 
             HttpSession sessao = request.getSession();
             sessao.setAttribute("token", token.token(jsonObject));
             String path = "Pages/CadastrarCliente.jsp";
-//            if (user.getTipoLogin().equals("dono")) {
-//               path = "Pages/CadastrarFilial.jsp";
-//            } else if (user.getTipoLogin().equals("funcionario")) {
-//               path = "Pages/EfetuarVenda.jsp";
-//            } else if (user.getTipoLogin().equals("admin")){
-//               path = "Pages/CadastrarSede.jsp";
-//            }
+            if (user.getTipoLogin().equals("dono")) {
+               path = "Pages/CadastrarEmpresa.jsp";
+            } else if (user.getTipoLogin().equals("funcionario")) {
+               path = "Pages/EfetuarVenda.jsp";
+            } else if (user.getTipoLogin().equals("admin")) {
+                path = "Pages/CadastrarEmpresa.jsp";
+            }
             System.out.println("mandou pro path");
+            System.out.println(path);
             request.getRequestDispatcher(path).forward(request, response);
         } else {
             System.out.println("entro no else");

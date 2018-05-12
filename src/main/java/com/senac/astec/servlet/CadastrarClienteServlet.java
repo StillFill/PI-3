@@ -36,7 +36,6 @@ public class CadastrarClienteServlet extends HttpServlet {
         if (session.getAttribute("token") == null) {
             req.getRequestDispatcher("Pages/Login.jsp").forward(req, resp);
         }
-
         String token = (String) session.getAttribute("token");
         //instanciando classe responsavel pelo token
         CreatedTokenAbstract jwt = new CreatedToken();
@@ -51,8 +50,7 @@ public class CadastrarClienteServlet extends HttpServlet {
             throws ServletException, IOException {
 
         doHead(request, response);
-        
-        
+
         HttpSession session = request.getSession(false);
 
         String tokenJwt = (String) session.getAttribute("token");
@@ -60,8 +58,14 @@ public class CadastrarClienteServlet extends HttpServlet {
         CreatedTokenAbstract jwt = new CreatedToken();
 
         Token token = (Token) jwt.decodeToken(tokenJwt);
-        
-        System.out.println("TOKEN DO CLIENTE "+token.getTipoLogin());
+
+        if (token.getTipoLogin().equals("funcionario")) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Pages/EfetuarVenda.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        System.out.println("TOKEN DO CLIENTE " + token.getTipoLogin());
         String destino = "Pages/CadastrarCliente.jsp";
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
@@ -80,7 +84,7 @@ public class CadastrarClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("CHAMOU O POST");
         request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
         String birthday = request.getParameter("birthday");
@@ -97,7 +101,17 @@ public class CadastrarClienteServlet extends HttpServlet {
         String neighborhood = request.getParameter("neighborhood");
         String city = request.getParameter("city");
         String state = request.getParameter("state");
-        PrintWriter imprimir = response.getWriter();
+
+        HttpSession session = request.getSession(false);
+
+        String tokenJwt = (String) session.getAttribute("token");
+
+        CreatedTokenAbstract jwt = new CreatedToken();
+
+        Token token = (Token) jwt.decodeToken(tokenJwt);
+
+        int idEmpresa = token.getIdEmpresa();
+        System.out.println(token.getIdEmpresa());
         Cliente newClient = new Cliente();
         newClient.setNome(name);
         newClient.setDataNasc(birthday);
@@ -115,27 +129,27 @@ public class CadastrarClienteServlet extends HttpServlet {
         newClient.setCidade(city);
         newClient.setEstado(state);
         newClient.setEnabled(true);
-//            newClient.setCodigoempresa();
+        newClient.setCodigoempresa(idEmpresa);
+
         ServicoCliente servicoCliente = new ServicoCliente();
         try {
             servicoCliente.cadastrarCliente(newClient);
-            imprimir.println("deu bom");
         } catch (Exception e) {
-            imprimir.println("deu ruim");
+            System.out.println("Erro ao cadastrar cliente: " + e);
         }
 
-//        response.sendRedirect(request.getContextPath() + "/cadastrar-cliente");
+        response.sendRedirect(request.getContextPath() + "/cadastrar-cliente");
     }
 
     // deletar
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("CHAMOU O DELETE");
     }
 
     // atualizar
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp); //To change body of generated methods, choose Tools | Templates.
+
     }
 }
