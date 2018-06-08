@@ -121,7 +121,7 @@ public class CadastrarEmpresaServlet extends HttpServlet{
             System.out.println("OCORREU UM ERRO" + e);
         }
         
-        String destino = "Pages/CadastrarEmpresa.jsp";
+        String destino = "Pages/Login.jsp";
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(destino);
         dispatcher.forward(request, response);

@@ -32,4 +32,5 @@ com\senac\astec\model\ItemVenda.class
 com\senac\astec\servlet\EfetuarVendaServlet.class
 com\senac\astec\service\ServicoLogin.class
 com\senac\astec\AbstracClass\CreatedTokenAbstract.class
+com\senac\astec\servlet\ConsultarImoveisServlet.class
 com\senac\astec\dto\RelatorioDTO.class

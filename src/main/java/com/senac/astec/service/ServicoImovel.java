@@ -27,20 +27,20 @@ public class ServicoImovel {
     }
 
     //Atualiza um produto na fonte de dados
-    public void atualizarImovel(Imovel produto) throws IOException {
+    public void atualizarImovel(Imovel imovel) throws IOException {
         
 
         try {
-            produtoDAO.updateImovel(produto);
+            produtoDAO.updateImovel(imovel);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-    public  List<Imovel> procurarImovel(String nome, int codigoempresa) throws IOException {
+    public  Imovel procurarImovel(int idImovel) throws IOException {
         try {
-        return produtoDAO.listarImovel(nome, codigoempresa);
+        return produtoDAO.encontrarImovel(idImovel);
           
         } catch (Exception e) {
             //Imprime qualquer erro técnico no console e devolve
@@ -50,59 +50,11 @@ public class ServicoImovel {
         }
     }
 
-    public Imovel encontrarImovelPorNome(String nome, int codigoempresa) throws IOException {
+    public void excluirImovel(int codigo) throws IOException {
         try {
-            return produtoDAO.encontrarImovel(nome, codigoempresa);
+            produtoDAO.deletarImovel(codigo);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
-    public Imovel encontrarImovelPorCodigo(int codigo, int codigoempresa) throws IOException {
-        try {
-            return produtoDAO.encontrarImovelCodigo(codigo, codigoempresa);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    public boolean encontrarImovelCadastro(String nome, int codigoempresa) throws IOException {
-        try {
-            return produtoDAO.encontrarImovelCadastro(nome, codigoempresa);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public void excluirImovel(Integer codigo, int codigoempresa) throws IOException {
-        try {
-            produtoDAO.deletarImovel(codigo, codigoempresa);
-        } catch (Exception e) {
-            System.out.println("Erro");
-        }
-    }
-    
-    //Lista produtos de determinada empresa
-    public List<Imovel> listarImovels(int codigoempresa) throws IOException, Exception {
-        try {
-            return produtoDAO.listarImoveis(codigoempresa);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
-    //Lista produtos Totais
-    public List<Imovel> listarImovelstotais() throws IOException, Exception {
-        try {
-            return produtoDAO.listarImoveistotais();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            System.out.println("Erro " + e);
         }
     }
 }

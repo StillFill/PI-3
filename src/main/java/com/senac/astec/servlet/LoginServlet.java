@@ -68,13 +68,13 @@ public class LoginServlet extends HttpServlet {
             jsonObject.addProperty("exp", expires.getTime());
 
             jsonObject.addProperty("id", user.getIdLogin());
-            
+            System.out.println(user.getIdEmpresa());
             jsonObject.addProperty("tipoLogin", user.getTipoLogin());
             jsonObject.addProperty("idEmpresa", user.getIdEmpresa());
 
             jsonObject.addProperty("idFuncionario", user.getIdFuncionario());
             CreatedTokenAbstract token = new CreatedToken();
-
+            System.out.println("ALOOOOOOOOOOOOOOOOOOO");
             HttpSession sessao = request.getSession();
             sessao.setAttribute("token", token.token(jsonObject));
             String path = "Pages/CadastrarCliente.jsp";

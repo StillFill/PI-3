@@ -13,8 +13,28 @@
     window.location.pathname = "/astec/cadastrar-cliente";
  }
 </script>
+<style>
+    .form-block label{
+    margin-top: 1em;
+}
+.radio-container {
+    display: flex;
+    margin-top: 0.3em;
+}
+
+.radio-container input {
+    margin-left: 0;
+}
+
+.form-block-row {
+    padding-left: 0.5em;
+}
+.form-block-row p{
+    padding-left: 0.5em;
+}
+</style>
 <body>
-    <form method="post">
+    <form method="post" action="http://localhost:8080/astec/cadastrar-imovel">
         <div class="application-container">
 		<div class="form-container">
 			<div class="form-header">CADASTRO DE IMÓVEIS</div>
@@ -62,9 +82,11 @@
 				<input type="checkbox" name="pets" value="sim">Sim
 			</div>
 			<div class="form-block">
-				<label>Aluguel/Compra:</label>
-				<input type="radio" name="tipoImovel" value="aluguel"> Aluguel<br>
-  				<input type="radio" name="tipoImovel" value="venda">Venda
+                            <label>Aluguel/Compra:</label>
+                                <div class="radio-container">
+                                    <input type="radio" name="tipoImovel" value="aluguel"> <span style="margin-right: 0.5em">Aluguel</span>
+                                    <input type="radio" name="tipoImovel" value="venda">Venda
+                                </div>
   				<label>Valor:</label>
 				<input type="text" name="valor">
 				<label>Condominio:</label>
@@ -74,8 +96,10 @@
 				<label>Seguro:</label>
 				<input type="text" name="seguro">
 				<label>Parcela:</label>
-				<input type="radio" name="parcelaImovel" value="sim"> Sim<br>
-  				<input type="radio" name="parcelaImovel" value="nao">Não
+                                <div class="radio-container">
+                                    <input type="radio" name="parcelaImovel" value="sim"> <span style="margin-right: 0.5em">Sim</span>
+                                    <input type="radio" name="parcelaImovel" value="nao">Não
+                                </div>
   				<label>Valor da entrada:</label>
 				<input type="text" name="valorEntrada">
 				

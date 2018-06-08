@@ -122,6 +122,7 @@ public class CadastrarImovelServlet extends HttpServlet {
             newImovel.setEnabled(true);
             ServicoImovel servico = new ServicoImovel();
             servico.cadastrarImovel(newImovel);
+            request.getRequestDispatcher("Pages/CadastrarImoveis.jsp").forward(request, response);
         } catch (Exception e) {
             System.out.println("DEU RUIM NO IMOVEL" + e);
         }
